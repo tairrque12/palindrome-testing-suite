@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIQ's Futuristic Dining</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #000000;
+            color: #e8e8e8;
+            font-family: Georgia Serif,serif;
+        }
+
+        nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background-color: transparent;
+            border-bottom: 1px solid #c9a84c;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        .diner-logo{
+            font-size: 22px;
+            font-weight: bold;
+            color: #c9a84c;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .nav-links{
+            list-style: none;
+            display: flex;
+            gap: 48px;
+        }
+
+        .nav-links a{
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 3px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .nav-links a:hover{
+            color: #c9a84c;
+            transition: color 0.3s ease;
+        }
+        .hero-section{
+            padding-top: 100px;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+<!--Below is my Navigation Bar-->
+<nav>
+    <div class="diner-logo" >RIQ'S Diner</div>
+    <!--
+     div is the tag
+     class is the attribute
+     nav-logo is the value CSS will look for
+     Futuristic Diner is the content the user sees
+     -->
+    <ul class="nav-links">
+        <li><a href="#experience">Experience</a> </li>
+        <!-- <a> is the tag.
+        href is the attribute(hyperlink reference).
+        #experience is the value where the link goes
+        Experience is the content the user sees
+         -->
+        <li><a href="#menu">Menu</a> </li>
+        <li><a href="#how-to-visit">How To Visit</a> </li>
+        <li><a href="#shop">Shop</a></li>
+    </ul>
+</nav>
+
+<!--Hero Section is designed to be the first thing a visitor sees when visiting a website without scrolling. -->
+<section id="hero" class="hero-section">
+    <!-- id experience matches href experience in my nav.
+    When someone clicks experience in the nav, the browser will look for the element and jump to it.
+    class = hero-section is the label CSS will use to style this section. -->
+    <h1>RIQ'S Futuristic Dining</h1>
+    <p>Where the Future Comes to Eat, Charge & Watch</p>
+    <button>Reserve Your Bay</button>
+</section>
+
+<!--Experience Section -->
+<section id="experience" class="experience-section">
+    <div class="experience-card">
+    <h3>Charge ⚡ </h3>
+    <p>Pull in your electric car and plug in at one of our charging bays while you eat</p>
+    </div>
+
+    <div class="experience-card">
+    <h3>Robotic Services 🤖 </h3>
+        <p>Come meet our Humanoid Robots</p>
+    </div>
+
+    <div class="experience-card">
+    <h3>Cinema Screen 🎬 </h3>
+        <p>See a List of our movie showings coming up</p>
+    </div>
+</section>
+
+<section id="menu" class="menu-section">
+<h2>Our Menu</h2>
+    <div class="menu-item">
+    <h3>The MegaWatt Burger</h3>
+    <p>Double smash-seared beef, American cheese, shaved onions, pickles, and house future sauce on a toasted potato bun.</p>
+    </div>
+
+    <div class= "menu-item">
+        <h3>Quantum Stack</h3>
+        <p>Double precision-seared beef, layered American cheese, house reactor sauce, and engineered crunch.</p>
+    </div>
+
+    <div class="menu-item">
+        <h3>Autonomous Fries</h3>
+        <p>AI-timed crisp. Perfect salt calibration.</p>
+    </div>
+</section>
+
+</body>
+
+</html>

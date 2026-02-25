@@ -1,9 +1,22 @@
-<!DOCTYPE html>
+<!DOCTYPE html>T
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
     <title>Learning HTML</title>
+
+    <style>
+        table, th, td{
+            border: 1px solid crimson;
+        }
+
+        table{
+            border-collapse: collapse;
+        }
+
+    </style>
+
+
 </head>
 
 <body>
@@ -17,7 +30,6 @@
 -->
 <header>
 <h1>The Code Magazine</h1>
-
 <nav>
     <a href="blog.html">Read the Blog</a>
     <a href="#">Challenges</a>
@@ -33,11 +45,12 @@
 <p>
     <img src="img.png"
          alt="Headshot of Laura Jones"
-         width="50" height="50"
-    />
+         width="100" height="100";
+    img/>
 </p>
 
 <p>Posted by <b>Tairrque Baker</b> on Monday, February 23rd 2026
+
 <p>
     <img src="img_1.png"
          alt="Picture of HTML code"
@@ -60,6 +73,37 @@
         <li>The closing tag</li>
     <li>The actual element</li>
 </ol>
+
+    <table>
+        <caption>Army Roster</caption>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Rank</th>
+            <th>Branch</th>
+            <th>Years of Service</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>Tairrque</td>
+            <td>25</td>
+            <td>1LT</td>
+            <td>25A</td>
+            <td>5</td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <td>This is the end of the roster</td>
+        </tr>
+        </tfoot>
+    </table>
+
+
 
 <p>You can learn more at
     <a href="https://github.com/jonasschmedtmann/html-css-course/blob/master/starter/02-HTML-Fundamentals/post-img.jpg" target="_blank">

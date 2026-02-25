@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Demo</title>
+
+</head>
+
+<body>
+<h1>Please Submit Form For Soldier Of The Year</h1>
+
+
+<form action="/submit" method="POST">
+
+    <fieldset>
+        <legend>Personal Information</legend>
+
+    <label for="full_name">Full Name</label>
+    <input type="text" name="full_name" id="full_name">
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+    </fieldset>
+
+    <fieldset>
+        <legend>Military Information</legend>
+
+    <label>Army<input type="radio" name="branch" value="Army" id="radio" ></label>
+    <label>Navy<input type="radio" name="branch" value="Navy"></label>
+    <label>Marines<input type="radio" name="branch" value="Marines"></label>
+    </fieldset>
+
+    <input type="submit">
+</form>
+
+
+
+
+
+</form>
+
+</body>
+</html>
