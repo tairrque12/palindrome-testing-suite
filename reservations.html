@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Steam & Silicon | Reservations</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<!--Navigation Bar-->
+<nav class="navbar">
+    <div class="nav-logo">
+        <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo">
+    </div>
+    <!--DIV HAS NO MEANING ON ITS OWN. GROUPS THEM TOGETHER TO STYLE AS ONE UNIT.-->
+    <ul class="nav-links">
+        <!--THIS IS AN UNORDERED LIST WITH THE NAVIGATION LINKS-->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="reservations.html">Reservations</a></li>
+    </ul>
+</nav>
+
+<!--INTRODUCTION-->
+<section class="reservation-intro">
+    <h1>Reservations & Autonomous Drone Delivery</h1>
+    <p>Reservations at Steam & Silicon are available on a request-only basis.
+        Choose between joining us in person at our futuristic dining room or
+        let our autonomous drone fleet bring the full Steam & Silicon experience
+        straight to your door. Fill out the form below and our team will confirm
+        your request within 24 hours.</p>
+</section>
+
+<!--FORM STARTS HERE-->
+<form action="/submit" method="POST">
+
+    <!--SERVICE SELECTION-->
+    <fieldset>
+        <legend>Service Selection</legend>
+        <label><input type="radio" name="order-type" value="In-Person Diner" required> In-Person Diner</label>
+        <label><input type="radio" name="order-type" value="EV Cinema Bay"> EV Cinema Bay</label>
+        <label><input type="radio" name="order-type" value="Drone Delivery"> Drone Delivery</label>
+    </fieldset>
+
+    <!--PERSONAL INFORMATION-->
+    <fieldset>
+        <legend>Please Enter Your Information (Required)</legend>
+
+        <label for="full_name">Full Name</label>
+        <input type="text" name="full_name" id="full_name" placeholder="Enter Your Full Name" maxlength="20" autofocus required>
+
+        <label for="phone_number">Phone Number</label>
+        <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date" required>
+
+        <label for="time">Specify Your Time</label>
+        <input type="time" name="time" id="time" required>
+    </fieldset>
+
+    <!--IN PERSON DINING-->
+    <fieldset>
+        <legend>In-Person Dining</legend>
+
+        <label for="party_size">What Is Your Party Size?</label>
+        <select name="party_size" id="party_size">
+            <option value="">Select Party Size</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+    </fieldset>
+
+    <!--SEATING PREFERENCE-->
+    <fieldset>
+        <legend>Seating Preference (In-Person Dining)</legend>
+        <label><input type="radio" name="seating-preference" value="Indoor"> Indoor</label>
+        <label><input type="radio" name="seating-preference" value="Outdoor"> Outdoor</label>
+        <label><input type="radio" name="seating-preference" value="SkyPad Lounge"> SkyPad Lounge</label>
+    </fieldset>
+
+    <!--DRONE DELIVERY-->
+    <fieldset>
+        <legend>Drone Delivery</legend>
+
+        <label for="delivery_address">Delivery Address</label>
+        <input type="text" name="delivery_address" id="delivery_address">
+
+        <label for="city">City</label>
+        <input type="text" name="city" id="city">
+
+        <label for="zip_code">Zip Code</label>
+        <input type="text" name="zip_code" id="zip_code">
+
+        <label for="order_menu">Select Your Meal</label>
+        <select name="order_menu" id="order_menu">
+            <option value="">Select Food From Menu Below</option>
+            <option value="The Ironclad">The Ironclad — $14.99</option>
+            <option value="Voltage Breakfast">Voltage Breakfast — $11.99</option>
+            <option value="Silicon Stack">Silicon Stack — $10.99</option>
+            <option value="Gear and Grind">Gear & Grind — $13.99</option>
+            <option value="Circuit Salad">Circuit Salad — $9.99</option>
+            <option value="The Overcharge">The Overcharge — $16.99</option>
+        </select>
+
+        <label for="time_for_delivery">Preferred Delivery Time</label>
+        <input type="time" name="time_for_delivery" id="time_for_delivery">
+    </fieldset>
+
+    <!--EV CINEMA BAY-->
+    <fieldset>
+        <legend>EV Cinema Bay</legend>
+
+        <label>Please Select Your Car Type:</label>
+        <label><input type="radio" name="vehicle-type" value="Tesla"> Tesla</label>
+        <label><input type="radio" name="vehicle-type" value="Ford"> Ford</label>
+        <label><input type="radio" name="vehicle-type" value="Chevy"> Chevy</label>
+        <label><input type="radio" name="vehicle-type" value="BMW"> BMW</label>
+
+        <label for="charger_type">Select Your Bay</label>
+        <select name="charger_preference" id="charger_type">
+            <option value="">Select Bay Preference</option>
+            <option value="Standard Bay">Standard Bay — $5.99</option>
+            <option value="Premium Bay">Premium Bay — $12.99</option>
+            <option value="Drive-In Cinema Bay">Drive-In Cinema Bay — $19.99</option>
+        </select>
+    </fieldset>
+
+    <!--DIETARY NOTES-->
+    <label for="dietary_notes">Dietary Notes (Optional)</label>
+    <textarea name="dietary_notes" id="dietary_notes" maxlength="30" placeholder="Any allergies or dietary restrictions?"></textarea>
+
+    <!--NEWSLETTER-->
+    <label>
+        <input type="checkbox" name="newsletter">
+        Stay up to date with Steam & Silicon news and exclusive offers
+    </label>
+
+    <!--BUTTONS-->
+    <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
+
+</form>
+</body>
+</html>
