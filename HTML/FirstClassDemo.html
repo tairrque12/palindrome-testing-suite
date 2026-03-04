@@ -7,14 +7,23 @@
 </head>
 
 <body>
-<h1>Please Submit Form For Soldier Of The Year</h1>
+<h1>Please Submit Armed Services Information</h1>
 
 
 <form action="/submit" method="POST">
+    <!-- this tells the browser when I slick submit send to server.
+    submit is where the data goes.
+    method is where the data is sent.
+    -->
 
     <fieldset>
+        <!-- fieldset groups input into a box
+        Personal information is the name of the box
+        legend places it in the box
+        -->
         <legend>Personal Information</legend>
 
+        <!--THIS IS A PAIR -->
     <label for="full_name">Full Name</label>
     <input type="text" name="full_name" id="full_name">
 
