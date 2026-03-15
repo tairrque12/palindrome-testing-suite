@@ -1,133 +1,133 @@
-<!DOCTYPE html>T
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-
+// index.html
+<!practice html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Learning HTML</title>
-
+    <meta charset="UTF-8" />
+    <title>Tesla FSD-like Visualization (Demo)</title>
     <style>
-        table, th, td{
-            border: 1px solid crimson;
-        }
-
-        table{
-            border-collapse: collapse;
-        }
-
+        body { margin:0; background:#000; overflow:hidden; }
+        canvas { display:block; }
     </style>
-
-
 </head>
-
 <body>
-<!--
-<h1>The Basic Language of the Web: HTML</h1>
-<h2>The Basic Language of the Web: HTML</h2>
-<h3>The Basic Language of the Web: HTML</h3>
-<h4>The Basic Language of the Web: HTML</h4>
-<h5>The Basic Language of the Web: HTML</h5>
-<h6>The Basic Language of the Web: HTML</h6>
--->
-<header>
-<h1>The Code Magazine</h1>
-<nav>
-    <a href="blog.html">Read the Blog</a>
-    <a href="#">Challenges</a>
-    <a href="#">FlexBox </a>
-    <a href="#">CSS Grid</a>
-</nav>
-</header>
+<canvas id="canvas"></canvas>
 
-<article>
-    <header>
-<h2>The Basic Language of the Web: HTML</h2>
+<script>
+    // FSD-style visualization demo (very simplified)
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
 
-<p>
-    <img src="img.png"
-         alt="Headshot of Laura Jones"
-         width="100" height="100";
-    img/>
-</p>
+    let width, height;
 
-<p>Posted by <b>Tairrque Baker</b> on Monday, February 23rd 2026
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
 
-<p>
-    <img src="img_1.png"
-         alt="Picture of HTML code"
-         width="1000" height="400"
-    />
-</p>
-    </header>
+    window.addEventListener('resize', resize);
+    resize();
 
-<p>All modern websites and web applications are built using 3 <em>fundamental</em> technologies. HTML, CSS & JavaScript. These are the 3 languages of the web.</p>
-<p>In this post, lets focus on HTTML. We will learn what HTML is all about, and why you should learn it </p>
+    const car = { x: width / 2, y: height * 0.75, width: 60, height: 120 };
+    const lanes = [
+        { x: width * 0.3 },
+        { x: width * 0.5 },
+        { x: width * 0.7 }
+    ];
 
-<h3>What is HTML?</h3>
-<p>HTML stands for <strong>H</strong>yper <strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage It is a markup language that web developers use to structure and describe the content of a webpage (not a programming language) </p>
-<p>HTML consist of elements that describe different types of content: paragraphs, links, headings, images, video, etc. Web browsers understand HTML and render HTML code as websites.</p>
+    let objects = [
+        { x: width * 0.4, y: -200, w: 50, h: 100, color: '#ff4444', speed: 8 }, // car ahead
+        { x: width * 0.65, y: -500, w: 200, h: 40, color: '#44ff44', speed: 3 }  // cyclist
+    ];
 
-<p>In HTML, each element is made up of 3 parts:</p>
+    function drawRoad() {
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, width, height);
 
-<ol>
-    <li>The opening tag</li>
-        <li>The closing tag</li>
-    <li>The actual element</li>
-</ol>
+        // Horizon
+        ctx.fillStyle = '#222';
+        ctx.fillRect(0, 0, width, height * 0.4);
 
-    <table>
-        <caption>Army Roster</caption>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Rank</th>
-            <th>Branch</th>
-            <th>Years of Service</th>
-        </tr>
-        </thead>
+        // Road
+        ctx.fillStyle = '#000';
+        ctx.fillRect(width * 0.2, 0, width * 0.6, height);
 
-        <tbody>
-        <tr>
-            <td>Tairrque</td>
-            <td>25</td>
-            <td>1LT</td>
-            <td>25A</td>
-            <td>5</td>
-        </tr>
-        </tbody>
+        // Lane lines
+        ctx.strokeStyle = '#ffea00';
+        ctx.lineWidth = 8;
+        ctx.setLineDash([40, 40]);
 
-        <tfoot>
-        <tr>
-            <td>This is the end of the roster</td>
-        </tr>
-        </tfoot>
-    </table>
+        lanes.forEach(lane => {
+            ctx.beginPath();
+            ctx.moveTo(lane.x, 0);
+            ctx.lineTo(lane.x, height);
+            ctx.stroke();
+        });
 
+        ctx.setLineDash([]);
+    }
 
+    function drawCar() {
+        ctx.save();
+        ctx.translate(car.x, car.y);
 
-<p>You can learn more at
-    <a href="https://github.com/jonasschmedtmann/html-css-course/blob/master/starter/02-HTML-Fundamentals/post-img.jpg" target="_blank">
-        MDN Web Docs</a>
-</p>
+        // Blue Tesla-like car body
+        ctx.fillStyle = '#0066ff';
+        ctx.fillRect(-car.width/2, -car.height/2, car.width, car.height);
 
+        // Windows
+        ctx.fillStyle = '#111';
+        ctx.fillRect(-car.width/2 + 10, -car.height/2 + 20, car.width - 20, 60);
 
+        // Wheels
+        ctx.fillStyle = '#000';
+        ctx.fillRect(-car.width/2 - 5, -car.height/2 + 10, 10, 40);
+        ctx.fillRect(car.width/2 - 5, -car.height/2 + 10, 10, 40);
+        ctx.fillRect(-car.width/2 - 5, car.height/2 - 50, 10, 40);
+        ctx.fillRect(car.width/2 - 5, car.height/2 - 50, 10, 40);
 
-<h3>Why you should learn about HTML?</h3>
-<h3>There are countless reasons for learning the fundamental language of the web. Here are 5 of them: </h3>
+        ctx.restore();
+    }
 
-<ul>
-    <li>To be able to use the fundamental web dev language</li>
-    <li>To hand-craft beautiful websites instead of relying on tools like WordPress or Wix</li>
-    <li>To build web applications</li>
-    <li>To impress friends</li>
-    <li>To have fun</li>
-</ul>
+    function drawObjects() {
+        objects.forEach(obj => {
+            ctx.fillStyle = obj.color;
+            ctx.fillRect(obj.x - obj.w/2, obj.y - obj.h/2, obj.w, obj.h);
 
-<p>Hopefully you learned something new here. See you next time!</p>
-</article>
+            // Projected path lines (Tesla-style)
+            ctx.strokeStyle = obj.color + '88';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(obj.x, obj.y);
+            ctx.lineTo(obj.x, obj.y + 400);
+            ctx.stroke();
+        });
+    }
 
-<footer>
-    Copyright &copy; 2027 By the Code Magazine
-</footer>
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        drawRoad();
+
+        // Move objects towards us (simulate driving forward)
+        objects.forEach(obj => {
+            obj.y += obj.speed;
+            if (obj.y > height + 100) obj.y = -200 - Math.random() * 400;
+        });
+
+        drawObjects();
+        drawCar();
+
+        // FSD path prediction (simple parabola example)
+        ctx.strokeStyle = '#00ffff';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(car.x, car.y);
+        ctx.quadraticCurveTo(car.x - 40, car.y - 200, car.x + 80, car.y - 500);
+        ctx.stroke();
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
 </body>
 </html>

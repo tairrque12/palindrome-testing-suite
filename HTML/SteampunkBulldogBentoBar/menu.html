@@ -1,25 +1,38 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Steam & Silicon | Menu</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Your custom styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
 
-<!--Navigation Bar-->
-<nav class="navbar">
-    <div class="nav-logo">
-        <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo">
+<!-- BOOTSTRAP NAVBAR -->
+<nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo" height="50">
+            <span>Steam & Silicon</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+            </ul>
+        </div>
     </div>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="reservations.html">Reservations</a></li>
-    </ul>
 </nav>
 
 <!--MENU INTRO-->
@@ -36,89 +49,16 @@
     <img src="images/food.png" alt="Futuristic Steam and Silicon Diner">
 </section>
 
-<!--CATEGORY LINKS-->
-<div class="category-links">
-    <a href="#breakfast">Breakfast</a>
-    <a href="#burgers">Burgers & Sandwiches</a>
-    <a href="#sides">Sides</a>
-    <a href="#beverages">Beverages</a>
+<!-- CATEGORY FILTER BUTTONS -->
+<div class="category-links" id="filter-buttons">
+    <button class="btn-filter active" data-category="All">All</button>
+    <button class="btn-filter" data-category="Breakfast">Breakfast</button>
+    <button class="btn-filter" data-category="Lunch">Lunch</button>
+    <button class="btn-filter" data-category="Dinner">Dinner</button>
 </div>
 
-<!--BREAKFAST CARDS-->
-<div class="menu-grid" id="breakfast">
-    <div class="menu-card">
-        <img src="images/breakfast1.png" alt="Voltage Breakfast">
-        <p>Voltage Breakfast</p>
-        <p>$11.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/EggScramble.png" alt="Gear and Egg Scramble">
-        <p>Gear & Egg Scramble</p>
-        <p>$8.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/FrenchToast.png" alt="Copper Coil French Toast">
-        <p>Copper Coil French Toast</p>
-        <p>$8.99</p>
-    </div>
-</div>
-
-<!--BURGERS & SANDWICH CARDS-->
-<div class="menu-grid" id="burgers">
-    <div class="menu-card">
-        <img src="images/IronClad.png" alt="The Ironclad Burger">
-        <p>The Ironclad Burger</p>
-        <p>$13.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/BaconJam.png" alt="The Overcharge">
-        <p>The Overcharge</p>
-        <p>$13.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/VeganBurger.png" alt="The Veginator">
-        <p>The Veginator</p>
-        <p>$12.99</p>
-    </div>
-</div>
-
-<!--SIDES CARDS-->
-<div class="menu-grid" id="sides">
-    <div class="menu-card">
-        <img src="images/ATruffleFries.png" alt="Truffle Fries">
-        <p>Truffle Fries</p>
-        <p>$5.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/BeefChili.png" alt="Beef Chili">
-        <p>Beef Chili</p>
-        <p>$9.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/ChickenSalad.png" alt="Chicken Caesar Salad">
-        <p>Chicken Caesar Salad</p>
-        <p>$13.99</p>
-    </div>
-</div>
-
-<!--BEVERAGES CARDS-->
-<div class="menu-grid" id="beverages">
-    <div class="menu-card">
-        <img src="images/MachaLatte.png" alt="Matcha Latte">
-        <p>Matcha Latte</p>
-        <p>$7.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/MilkShake.png" alt="Over The Top Milkshake">
-        <p>Over The Top Milkshake</p>
-        <p>$8.99</p>
-    </div>
-    <div class="menu-card">
-        <img src="images/MachaLatte.png" alt="Matcha Latte">
-        <p>Matcha Latte</p>
-        <p>$7.99</p>
-    </div>
-</div>
+<!-- MENU CARDS CONTAINER — JavaScript fills this -->
+<div class="menu-grid" id="menu-container"></div>
 
 <!--REQUIRED MENU TABLE-->
 <section class="menu-section">
@@ -129,7 +69,7 @@
             <th>Food</th>
             <th>Description</th>
             <th>Price</th>
-            <th>Notes</th>
+            <th>Category</th>
         </tr>
         </thead>
         <tbody>
@@ -137,71 +77,98 @@
             <td>Voltage Breakfast</td>
             <td>Two eggs any style, applewood bacon, sourdough toast, orange juice</td>
             <td>$11.99</td>
-            <td>Served All Day</td>
+            <td>Breakfast</td>
         </tr>
         <tr>
-            <td>Gear & Egg Scramble</td>
+            <td>Gear Egg & Scramble</td>
             <td>Three egg scramble, roasted peppers, onions, cheddar cheese, home fries</td>
             <td>$8.99</td>
-            <td>Spicy</td>
+            <td>Breakfast</td>
         </tr>
         <tr>
             <td>Copper Coil French Toast</td>
             <td>Thick cut brioche french toast, powdered sugar, fresh berries, whipped cream</td>
             <td>$8.99</td>
-            <td>Popular</td>
+            <td>Breakfast</td>
         </tr>
         <tr>
-            <td>The Ironclad Burger</td>
-            <td>Smash burger patty, crispy crust, American cheese, brioche bun</td>
-            <td>$13.99</td>
-            <td>Popular</td>
-        </tr>
-        <tr>
-            <td>The Overcharge</td>
-            <td>Double smash patty, bacon jam, cheddar cheese, caramelized onions</td>
-            <td>$13.99</td>
-            <td>Popular</td>
-        </tr>
-        <tr>
-            <td>The Veginator</td>
-            <td>Plant based patty, avocado, lettuce, tomato, vegan aioli</td>
-            <td>$12.99</td>
-            <td>Vegan</td>
-        </tr>
-        <tr>
-            <td>Truffle Fries</td>
-            <td>Crispy golden fries, truffle oil, parmesan, fresh herbs</td>
-            <td>$5.99</td>
-            <td>Popular</td>
-        </tr>
-        <tr>
-            <td>Beef Chili</td>
-            <td>Slow cooked beef chili, kidney beans, cheddar cheese, sour cream</td>
+            <td>Silicon Stack Pancakes</td>
+            <td>Fluffy buttermilk pancakes, maple syrup, whipped butter, fresh strawberries</td>
             <td>$9.99</td>
-            <td>Spicy</td>
+            <td>Breakfast</td>
         </tr>
         <tr>
-            <td>Chicken Caesar Salad</td>
-            <td>Grilled chicken, romaine, parmesan, croutons, caesar dressing</td>
+            <td>The IronClad Burger</td>
+            <td>Double smash patty, bacon jam, cheddar cheese, caramelized onions, brioche bun</td>
             <td>$13.99</td>
-            <td>Popular</td>
+            <td>Lunch</td>
         </tr>
         <tr>
-            <td>Matcha Latte</td>
-            <td>Ceremonial grade matcha, oat milk, vanilla, hot or iced</td>
-            <td>$7.99</td>
-            <td>Vegan</td>
+            <td>The OverCharge</td>
+            <td>Double smash patty, bacon jam, cheddar cheese, caramelized onions, brioche bun</td>
+            <td>$13.99</td>
+            <td>Lunch</td>
         </tr>
         <tr>
-            <td>Over The Top Milkshake</td>
-            <td>Hand spun vanilla milkshake, whipped cream, caramel drizzle</td>
-            <td>$8.99</td>
-            <td>Popular</td>
+            <td>Circuit Salad</td>
+            <td>Grilled chicken, romaine, parmesan, croutons, caesar dressing</td>
+            <td>$11.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>Drone Drop Wrap</td>
+            <td>Grilled steak, roasted peppers, pepper jack cheese, chipotle aioli, flour tortilla</td>
+            <td>$11.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>SkyPad Rib-eye</td>
+            <td>12oz ribeye, garlic butter, roasted asparagus, mashed potatoes</td>
+            <td>$34.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>Neon Salmon</td>
+            <td>Pan seared salmon, lemon butter sauce, wild rice, steamed broccoli</td>
+            <td>$28.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>Reactor Pasta</td>
+            <td>Penne pasta, spicy arrabbiata sauce, Italian sausage, fresh parmesan, garlic bread</td>
+            <td>$18.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>The Veginator Plate</td>
+            <td>Plant based patty, avocado, lettuce, tomato, vegan aioli, sweet potato fries</td>
+            <td>$16.99</td>
+            <td>Dinner</td>
         </tr>
         </tbody>
     </table>
 </section>
 
+<!-- BOOTSTRAP MODAL -->
+<div class="modal fade" id="menuModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modalItemName"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalItemImage" src="" alt="" class="w-100 mb-3" style="object-fit:cover; height:250px;">
+                <p id="modalItemPrice" class="fw-bold fs-5" style="color: var(--blue)"></p>
+                <p id="modalItemDescription" class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Your JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>

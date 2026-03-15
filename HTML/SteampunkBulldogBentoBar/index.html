@@ -4,21 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Steam & Silicon | Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!--NAVBAR-->
-<nav class="navbar">
-    <div class="nav-logo">
-        <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo">
+<!-- BOOTSTRAP NAVBAR -->
+<nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo" height="50">
+            <span>Steam & Silicon</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+            </ul>
+        </div>
     </div>
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
-        <li><a href="reservations.html">Reservations</a></li>
-    </ul>
 </nav>
 
 <!--HERO SECTION-->
@@ -56,7 +68,7 @@
     </div>
 </section>
 
-<!--FEATURE: NOW CHARGING — image left, text right-->
+<!--FEATURE: NOW CHARGING-->
 <section class="feature-block">
     <img src="images/Charging.png" alt="Electric vehicles charging at Steam and Silicon">
     <div class="feature-text">
@@ -67,7 +79,7 @@
     </div>
 </section>
 
-<!--FEATURE: NOW SERVING — image right, text left-->
+<!--FEATURE: NOW SERVING-->
 <section class="feature-block reverse">
     <img src="images/Dining&Serving.png" alt="Futuristic dining room at Steam and Silicon">
     <div class="feature-text">
@@ -79,7 +91,7 @@
     </div>
 </section>
 
-<!--FEATURE: NOW WATCHING — image left, text right-->
+<!--FEATURE: NOW WATCHING-->
 <section class="feature-block">
     <img src="images/movie.png" alt="Outdoor Cinema MegaScreen at Steam and Silicon">
     <div class="feature-text">
@@ -90,7 +102,7 @@
     </div>
 </section>
 
-<!--FEATURE: NOW DELIVERING — video right, text left-->
+<!--FEATURE: NOW DELIVERING-->
 <section class="feature-block reverse">
     <video autoplay muted loop>
         <source src="videos/OrderDelivery.mp4" type="video/mp4">
@@ -103,7 +115,7 @@
     </div>
 </section>
 
-<!--FEATURE: MEET OUR CREW — image left, text right-->
+<!--FEATURE: MEET OUR CREW-->
 <section class="feature-block">
     <img src="images/CompanyPhoto.png" alt="Steam and Silicon robot crew and drone fleet">
     <div class="feature-text">
@@ -114,7 +126,7 @@
     </div>
 </section>
 
-<!--MENU PROMO SECTION-->
+<!--MENU PROMO-->
 <section class="menu-promo">
     <h2>Retro-Futuristic Menu</h2>
     <p>Inspired by American diner classics, we offer a full menu of quick bites
@@ -124,5 +136,9 @@
     <a href="menu.html" class="btn">View Menu</a>
 </section>
 
+<!-- Bootstrap JS loads before script.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Your JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>

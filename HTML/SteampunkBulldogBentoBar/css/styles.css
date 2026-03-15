@@ -15,6 +15,8 @@
 /* Google Font for restaurant name and headings */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
 
+/* Font Awesome — used for icons in the stats bar above each stat number */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 
 /* ---- COLOR VARIABLES ---- */
 :root {
@@ -48,40 +50,37 @@ body {
 }
 
 /* ============================================
-   NAVBAR — horizontal layout with hover state
+   BOOTSTRAP NAVBAR OVERRIDES
    ============================================ */
-.navbar {
-    display: flex;
+#mainNav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    padding: 1rem 3rem;
-    justify-content: space-between;
-    align-items: center;
     background: rgba(10, 10, 10, 0.95);
     border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
 }
 
-.nav-logo img {
-    height: 4rem;
-    width: auto;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav-links a {
+#mainNav .navbar-brand {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
     text-decoration: none;
-    color: #999;
+    letter-spacing: 0.05em;
+}
+
+#mainNav .navbar-brand:hover {
+    color: var(--blue);
+}
+
+#mainNav .nav-link {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
     font-weight: 600;
+    color: #999;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding-bottom: 0.25rem;
@@ -89,10 +88,21 @@ body {
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-/* Hover state for nav links */
-.nav-links a:hover {
+#mainNav .nav-link:hover {
     color: var(--white);
     border-bottom: 2px solid var(--blue);
+}
+
+#mainNav .navbar-toggler {
+    border-color: var(--border);
+}
+
+#mainNav .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+#mainNav .navbar-collapse {
+    background: rgba(10, 10, 10, 0.95);
 }
 
 /* ============================================
@@ -105,6 +115,7 @@ body {
     overflow: hidden;
 }
 
+/* Image does not overflow container */
 .hero img {
     width: 100%;
     height: 100%;
@@ -168,6 +179,7 @@ body {
 
 /* ============================================
    STATS BAR
+   Font Awesome icons used here above each stat number
    ============================================ */
 .stats-bar {
     display: flex;
@@ -225,6 +237,7 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+/* Image does not overflow container */
 .feature-block img,
 .feature-block video {
     width: 55%;
@@ -308,7 +321,7 @@ body {
     font-style: italic;
 }
 
-
+/* Image does not overflow container */
 .restaurant-picture {
     width: 100%;
     height: 22rem;
@@ -322,7 +335,7 @@ body {
     display: block;
 }
 
-/* ---- CATEGORY LINKS ---- */
+/* ---- CATEGORY FILTER BUTTONS ---- */
 .category-links {
     display: flex;
     align-items: center;
@@ -333,23 +346,30 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
-.category-links a {
-    text-decoration: none;
+.btn-filter {
+    background: transparent;
     color: var(--muted);
+    border: 1px solid var(--border);
     font-family: 'Rajdhani', sans-serif;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 0.4rem 1rem;
-    border: 1px solid var(--border);
     border-radius: 2rem;
+    cursor: pointer;
     transition: color 0.3s ease, background 0.3s ease;
 }
 
-.category-links a:hover {
+.btn-filter:hover {
     color: var(--white);
     background: var(--dark3);
+}
+
+.btn-filter.active {
+    color: var(--white);
+    background: var(--blue);
+    border-color: var(--blue);
 }
 
 /* ---- MENU GRID ---- */
@@ -363,8 +383,6 @@ body {
 
 /* ============================================
    CARD CLASS — reusable card styling
-   Used for menu item cards on the menu page
-   background, padding, border all included
    ============================================ */
 .card {
     background: #111118;
@@ -384,6 +402,7 @@ body {
 .menu-card:hover {
     background: #161620;
 }
+
 
 .menu-card img {
     width: 100%;
@@ -408,7 +427,7 @@ body {
 }
 
 /* ============================================
-   MENU TABLE
+   MENU TABLE — borders, zebra striping, caption
    ============================================ */
 .menu-section {
     padding: 3rem;
@@ -516,7 +535,7 @@ body {
 }
 
 /* ============================================
-   FORM STYLING
+   FORM STYLING — aligned labels, consistent widths
    ============================================ */
 form {
     max-width: 50rem;
@@ -545,7 +564,6 @@ legend {
     padding: 0 0.5rem;
 }
 
-
 label {
     display: block;
     font-size: 0.8rem;
@@ -557,6 +575,7 @@ label {
     font-family: 'Rajdhani', sans-serif;
     font-weight: 600;
 }
+
 
 input[type="text"],
 input[type="email"],
@@ -582,6 +601,12 @@ select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--blue);
+}
+
+
+input[type="date"],
+input[type="time"] {
+    color-scheme: dark;
 }
 
 /* Radio and checkbox */
@@ -651,4 +676,52 @@ input[type="reset"] {
 input[type="reset"]:hover {
     border-color: var(--muted);
     color: var(--text);
+}
+
+/* ============================================
+   FIELD HINTS AND INLINE ERRORS
+   ============================================ */
+
+/* Small hint text shown next to labels */
+.field-hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    margin-left: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Inline error message shown below each field */
+.field-error {
+    display: block;
+    font-size: 0.78rem;
+    color: #ff4d4d;
+    font-family: 'Inter', sans-serif;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+    min-height: 1rem;
+}
+
+
+.alert {
+    max-width: 50rem;
+    margin: 1rem auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
+}
+
+.alert-danger {
+    background: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.4);
+    color: #ff4d4d;
+}
+
+.alert-success {
+    background: rgba(0, 200, 100, 0.1);
+    border: 1px solid rgba(0, 200, 100, 0.4);
+    color: #00c864;
 }
