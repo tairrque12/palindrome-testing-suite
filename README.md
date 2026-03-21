@@ -1,5 +1,5 @@
 Steam & Silicon 🍳⚡
-A futuristic EV charging diner with robot staff, cinema megascreens, and drone delivery. Built across 3 labs.
+A futuristic EV charging diner with robot staff, cinema megascreens, and drone delivery. Built across 3 labs. BE SURE TO ORDER SOMETHING FROM MY GROWING START-UP
 
 Lab 1 — HTML & CSS
 Built a 3-page static site with a dark electric-blue theme, responsive navbar, hero section, stats bar, feature blocks, menu table, and reservations form. Learned the box model, Flexbox, CSS variables, and form structure.
