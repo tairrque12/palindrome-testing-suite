@@ -24,6 +24,12 @@
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
                 <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -35,103 +41,118 @@
         Choose your service below and our team will confirm your request within 24 hours.</p>
 </section>
 
-<!-- ALERT BOX -->
-<div id="form-alert"></div>
+<div id="form-alert" style="max-width:50rem; margin:0 auto; padding:0 2rem;"></div>
 
-<!-- FORM -->
 <form id="reservation-form">
 
-    <!-- SERVICE SELECTION — always visible -->
     <fieldset>
         <legend>Service Selection</legend>
         <label><input type="radio" name="order-type" value="In-Person"> In-Person Dining</label>
         <label><input type="radio" name="order-type" value="Drone"> Drone Delivery</label>
         <label><input type="radio" name="order-type" value="EV"> EV Cinema Bay</label>
-        <p class="field-error" id="error-service"></p>
+        <span class="field-error" id="error-service"></span>
     </fieldset>
 
-    <!-- PERSONAL INFORMATION — always visible -->
     <fieldset>
         <legend>Your Information</legend>
 
-        <label for="full_name">Full Name <span class="field-hint">(max 20 characters)</span></label>
+        <label for="full_name">
+            Full Name
+            <span class="field-hint">Max 20 characters</span>
+        </label>
         <input type="text" name="full_name" id="full_name"
                placeholder="e.g. Tairrque Baker"
-               title="Enter your full name, up to 20 characters">
-        <p class="field-error" id="error-name"></p>
+               title="Enter your full name — max 20 characters">
+        <span class="field-error" id="error-name"></span>
 
-        <label for="phone_number">Phone Number <span class="field-hint">(optional — format: 555-867-5309)</span></label>
+        <label for="email">
+            Email Address
+            <span class="field-hint">Format: name@example.com</span>
+        </label>
+        <input type="email" name="email" id="email"
+               placeholder="e.g. tairrque@email.com"
+               title="Enter a valid email address">
+        <span class="field-error" id="error-email"></span>
+
+        <label for="phone_number">
+            Phone Number
+            <span class="field-hint">Format: 555-867-5309</span>
+        </label>
         <input type="tel" name="phone_number" id="phone_number"
                placeholder="e.g. 555-867-5309"
-               title="Format: 555-867-5309">
-        <p class="field-error" id="error-phone"></p>
+               title="Enter your phone number — format: 555-867-5309">
+        <span class="field-error" id="error-phone"></span>
 
-        <label for="email">Email Address <span class="field-hint">(e.g. yourname@email.com)</span></label>
-        <input type="email" name="email" id="email"
-               placeholder="e.g. yourname@email.com"
-               title="Enter a valid email like yourname@email.com">
-        <p class="field-error" id="error-email"></p>
-
-        <label for="date">Reservation Date <span class="field-hint">(select from calendar)</span></label>
+        <label for="date">
+            Reservation Date
+            <span class="field-hint">Must be a future date</span>
+        </label>
         <input type="date" name="date" id="date"
-               title="Click to select your reservation date">
-        <p class="field-error" id="error-date"></p>
+               title="Select the date of your reservation">
+        <span class="field-error" id="error-date"></span>
 
-        <label for="time">Reservation Time <span class="field-hint">(select a time)</span></label>
+        <label for="time">
+            Reservation Time
+            <span class="field-hint">We are open 24/7</span>
+        </label>
         <input type="time" name="time" id="time"
-               title="Click to select your reservation time">
-        <p class="field-error" id="error-time"></p>
+               title="Select your preferred arrival time">
+        <span class="field-error" id="error-time"></span>
     </fieldset>
 
-    <!-- IN-PERSON SECTION  shows only when In-Person is selected -->
     <fieldset id="inperson-section" style="display:none;">
         <legend>In-Person Dining</legend>
 
         <label for="party_size">Party Size</label>
-        <select name="party_size" id="party_size">
-            <option value="">How many guests?</option>
-            <option value="1">1 Guest</option>
-            <option value="2">2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5 Guests</option>
-            <option value="6">6 Guests</option>
-            <option value="7">7 Guests</option>
-            <option value="8">8 Guests</option>
+        <select name="party_size" id="party_size"
+                title="Select the number of guests in your party">
+            <option value="">Select number of guests (1–8)</option>
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6">6 guests</option>
+            <option value="7">7 guests</option>
+            <option value="8">8 guests</option>
         </select>
-        <p class="field-error" id="error-party"></p>
+        <span class="field-error" id="error-party"></span>
 
         <fieldset>
             <legend>Seating Preference</legend>
             <label><input type="radio" name="seating-preference" value="Indoor"> Indoor</label>
             <label><input type="radio" name="seating-preference" value="Outdoor"> Outdoor</label>
             <label><input type="radio" name="seating-preference" value="SkyPad Lounge"> SkyPad Lounge</label>
-            <p class="field-error" id="error-seating"></p>
+            <span class="field-error" id="error-seating"></span>
         </fieldset>
     </fieldset>
 
-    <!-- DRONE DELIVERY SECTION shows only when Drone is selected -->
     <fieldset id="drone-section" style="display:none;">
         <legend>Drone Delivery</legend>
 
         <label for="delivery_address">Street Address</label>
         <input type="text" name="delivery_address" id="delivery_address"
-               placeholder="e.g. 1234 Main St"
-               title="Enter the street address for delivery">
+               placeholder="e.g. 1234 Main Street"
+               title="Enter your street address for drone delivery">
+        <span class="field-error" id="error-address"></span>
 
         <label for="city">City</label>
         <input type="text" name="city" id="city"
                placeholder="e.g. Austin"
                title="Enter your city">
 
-        <label for="zip_code">Zip Code <span class="field-hint">(5 digits)</span></label>
+        <label for="zip_code">
+            Zip Code
+            <span class="field-hint">5-digit zip code</span>
+        </label>
         <input type="text" name="zip_code" id="zip_code"
                placeholder="e.g. 78701"
                title="Enter your 5-digit zip code">
 
         <label for="order_menu">Select Your Meal</label>
-        <select name="order_menu" id="order_menu">
-            <option value="">Choose from our menu</option>
+        <select name="order_menu" id="order_menu"
+                title="Select the meal you want delivered">
+            <option value="">Select a meal from our menu</option>
             <option value="Voltage Breakfast">Voltage Breakfast — $11.99</option>
             <option value="The IronClad Burger">The IronClad Burger — $13.99</option>
             <option value="The OverCharge">The OverCharge — $13.99</option>
@@ -141,7 +162,6 @@
         </select>
     </fieldset>
 
-    <!-- EV CINEMA BAY SECTION shows only when EV is selected -->
     <fieldset id="ev-section" style="display:none;">
         <legend>EV Cinema Bay</legend>
 
@@ -154,28 +174,29 @@
         </fieldset>
 
         <label for="charger_type">Select Your Bay</label>
-        <select name="charger_preference" id="charger_type">
-            <option value="">Choose a bay</option>
+        <select name="charger_preference" id="charger_type"
+                title="Select your preferred cinema bay type">
+            <option value="">Select bay preference</option>
             <option value="Standard Bay">Standard Bay — $5.99</option>
             <option value="Premium Bay">Premium Bay — $12.99</option>
             <option value="Drive-In Cinema Bay">Drive-In Cinema Bay — $19.99</option>
         </select>
     </fieldset>
 
-    <!-- DIETARY NOTES -->
-    <label for="dietary_notes">Dietary Notes <span class="field-hint">(optional, max 30 characters)</span></label>
+    <label for="dietary_notes">
+        Dietary Notes
+        <span class="field-hint">Optional — max 30 characters</span>
+    </label>
     <textarea name="dietary_notes" id="dietary_notes"
-              placeholder="e.g. No gluten, nut allergy, vegan"
-              title="List any allergies or dietary restrictions, max 30 characters"></textarea>
-    <p class="field-error" id="error-dietary"></p>
+              placeholder="e.g. Nut allergy, vegan, gluten-free"
+              title="Optional: list any allergies or dietary restrictions"></textarea>
+    <span class="field-error" id="error-dietary"></span>
 
-    <!-- NEWSLETTER — always visible -->
     <label>
         <input type="checkbox" name="newsletter" id="newsletter">
         Stay up to date with Steam & Silicon news and exclusive offers
     </label>
 
-    <!-- BUTTONS -->
     <input type="submit" value="Submit Reservation">
     <input type="reset" value="Reset">
 

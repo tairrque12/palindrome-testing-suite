@@ -1,3 +1,6 @@
+// ============================================
+// STEAM & SILICON — script.js
+// ============================================
 
 // ============================================
 // MENU ITEMS ARRAY
@@ -105,9 +108,32 @@ const MENU_ITEMS = [
 ];
 
 // ============================================
+// CART BADGE — updates on every page
+// ============================================
+function updateCartBadge() {
+    const badge = document.getElementById("cart-count");
+    if (!badge) { return; }
+
+    const stored = localStorage.getItem("cart");
+    if (!stored) {
+        badge.textContent = "0";
+        return;
+    }
+
+    const cart = JSON.parse(stored);
+    const totalItems = cart.reduce(function(total, item) {
+        return total + item.quantity;
+    }, 0);
+
+    badge.textContent = totalItems;
+}
+
+// Run on every page load
+updateCartBadge();
+
+// ============================================
 // MENU PAGE — DOM RENDERING
 // ============================================
-
 const menuContainer = document.getElementById("menu-container");
 
 if (menuContainer) {
@@ -122,10 +148,10 @@ if (menuContainer) {
     function renderCards(filter) {
         if (!filter) { filter = "All"; }
 
-
+        // Clear the container before adding new cards
         menuContainer.innerHTML = "";
 
-        // FILTER
+        // Filter items by category then loop through each one
         MENU_ITEMS.filter(function(item) {
             return filter === "All" || item.category === filter;
         }).forEach(function(item) {
@@ -134,6 +160,16 @@ if (menuContainer) {
                     <img src="${item.image}" alt="${item.name}">
                     <p>${item.name}</p>
                     <p>${money.format(item.price)}</p>
+                    <div class="card-actions">
+                        <select class="quantity-select" style="width:4.5rem; padding:0.45rem 0.5rem; font-size:0.85rem; background:#141414; border:1px solid #1e1e1e; color:#e0e0e0; border-radius:0.2rem; cursor:pointer;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button class="add-to-cart-btn" data-id="${item.id}" style="flex:1; background-color:#00aaff; color:#ffffff; border:none; padding:0.5rem 0.75rem; font-family:'Rajdhani',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; border-radius:0.2rem; white-space:nowrap;">Add to Cart</button>
+                    </div>
                 </div>
             `;
         });
@@ -154,8 +190,61 @@ if (menuContainer) {
         });
     });
 
-    // Modal click logic
+    // Combined click listener for Add to Cart and Modal
     menuContainer.addEventListener("click", function(event) {
+
+        // ---- ADD TO CART ----
+        if (event.target.classList.contains("add-to-cart-btn")) {
+            const itemId = parseInt(event.target.getAttribute("data-id"));
+            const card = event.target.closest(".menu-card");
+            const quantity = parseInt(card.querySelector(".quantity-select").value);
+
+            const item = MENU_ITEMS.find(function(menuItem) {
+                return menuItem.id === itemId;
+            });
+
+            // Load existing cart or start fresh
+            let cart = [];
+            const stored = localStorage.getItem("cart");
+            if (stored) { cart = JSON.parse(stored); }
+
+            // Check if item already in cart
+            const existing = cart.find(function(cartItem) {
+                return cartItem.id === itemId;
+            });
+
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    image: item.image,
+                    quantity: quantity
+                });
+            }
+
+            // Save to localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Update badge
+            updateCartBadge();
+
+            // Button feedback
+            event.target.textContent = "Added!";
+            event.target.style.backgroundColor = "#006699";
+            setTimeout(function() {
+                event.target.textContent = "Add to Cart";
+                event.target.style.backgroundColor = "#00aaff";
+            }, 1500);
+
+            return;
+        }
+
+        // ---- MODAL ----
+        if (event.target.classList.contains("quantity-select")) { return; }
+
         const card = event.target.closest(".menu-card");
         if (!card) { return; }
 
@@ -175,8 +264,144 @@ if (menuContainer) {
     });
 }
 
-//RESERVATION PAGE
+// ============================================
+// CART PAGE
+// ============================================
+const cartContainer = document.getElementById("cart-items");
 
+if (cartContainer) {
+
+    const money = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+    });
+
+    const TAX_RATE = 0.0825;
+
+    // Load cart from localStorage
+    let cart = [];
+    const stored = localStorage.getItem("cart");
+    if (stored) { cart = JSON.parse(stored); }
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = `
+            <div style="text-align:center; padding:4rem 0; color:#888888;">
+                <i class="fa-solid fa-cart-shopping" style="font-size:3rem; margin-bottom:1rem; color:#1e1e1e;"></i>
+                <p style="font-family:'Rajdhani',sans-serif; font-size:1.5rem; color:#888888;">Your cart is empty.</p>
+                <a href="menu.html" style="display:inline-block; margin-top:1rem; padding:0.75rem 2rem; background-color:#00aaff; color:#ffffff; text-decoration:none; font-family:'Rajdhani',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:2px solid #00aaff; border-radius:0.2rem;">Browse Menu</a>
+            </div>
+        `;
+
+    } else {
+
+        // Build cart table
+        let tableHTML = `
+            <table class="menu-table" style="margin-bottom:2rem;">
+                <caption>Order Summary</caption>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Line Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        cart.forEach(function(item) {
+            const lineTotal = item.price * item.quantity;
+            tableHTML += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${money.format(item.price)}</td>
+                    <td>${item.quantity}</td>
+                    <td>${money.format(lineTotal)}</td>
+                </tr>
+            `;
+        });
+
+        tableHTML += `</tbody></table>`;
+        cartContainer.innerHTML = tableHTML;
+
+        // Calculate totals
+        const subtotal = cart.reduce(function(total, item) {
+            return total + (item.price * item.quantity);
+        }, 0);
+
+        const tax = subtotal * TAX_RATE;
+        const finalTotal = subtotal + tax;
+
+        // Build totals section
+        document.getElementById("cart-totals").innerHTML = `
+            <table class="menu-table">
+                <tbody>
+                    <tr>
+                        <td style="color:#ffffff; font-family:'Rajdhani',sans-serif;">Subtotal</td>
+                        <td></td>
+                        <td></td>
+                        <td>${money.format(subtotal)}</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#ffffff; font-family:'Rajdhani',sans-serif;">Tax (8.25%)</td>
+                        <td></td>
+                        <td></td>
+                        <td>${money.format(tax)}</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#00aaff; font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700;">Total</td>
+                        <td></td>
+                        <td></td>
+                        <td style="color:#00aaff; font-weight:700;">${money.format(finalTotal)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+
+        // Show buttons
+        document.getElementById("cart-buttons").style.display = "block";
+
+        // Cancel Order logic
+        const cancelModal = new bootstrap.Modal(document.getElementById("cancelModal"));
+        const thankYouModal = new bootstrap.Modal(document.getElementById("thankYouModal"));
+
+        document.getElementById("cancel-btn").addEventListener("click", function() {
+            cancelModal.show();
+        });
+
+        document.getElementById("confirm-cancel-btn").addEventListener("click", function() {
+            localStorage.removeItem("cart");
+            cancelModal.hide();
+            thankYouModal.show();
+            document.getElementById("thankYouModal").addEventListener("hidden.bs.modal", function() {
+                window.location.href = "menu.html";
+            });
+        });
+
+        // Submit Order logic
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            console.log("Order submitted:", cart);
+            localStorage.removeItem("cart");
+
+            cartContainer.innerHTML = `
+    <div style="text-align:center; padding:4rem 0;">
+        <i class="fa-solid fa-circle-check" style="font-size:3rem; color:#00aaff; margin-bottom:1rem;"></i>
+        <p style="font-family:'Rajdhani',sans-serif; font-size:1.5rem; color:#ffffff;">Thank You, Jon-Mikel!</p>
+        <p style="color:#888888;">Your order has been submitted and our robot crew is on it.</p>
+        <p style="color:#888888; margin-top:0.5rem;">We appreciate your business at Steam & Silicon.</p>
+        <a href="menu.html" style="display:inline-block; margin-top:1rem; padding:0.75rem 2rem; background-color:#00aaff; color:#ffffff; text-decoration:none; font-family:'Rajdhani',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:2px solid #00aaff; border-radius:0.2rem;">Back to Menu</a>
+    </div>
+`;
+
+            document.getElementById("cart-totals").innerHTML = "";
+            document.getElementById("cart-buttons").style.display = "none";
+        });
+    }
+}
+
+// ============================================
+// RESERVATIONS PAGE
+// ============================================
 const reservationForm = document.getElementById("reservation-form");
 
 if (reservationForm) {
@@ -186,7 +411,7 @@ if (reservationForm) {
     const evSection = document.getElementById("ev-section");
     const alertBox = document.getElementById("form-alert");
 
-
+    // Fix Chrome dark theme date picker
     const dateInput = document.getElementById("date");
     const today = new Date().toISOString().split("T")[0];
     dateInput.setAttribute("min", today);
@@ -202,18 +427,15 @@ if (reservationForm) {
         alertBox.innerHTML = "";
     }
 
-    // Conditionals
+    // Conditional show/hide
     const serviceRadios = document.querySelectorAll('input[name="order-type"]');
 
     serviceRadios.forEach(function(radio) {
         radio.addEventListener("change", function() {
-
-            // Hide all sections first
             inpersonSection.style.display = "none";
             droneSection.style.display = "none";
             evSection.style.display = "none";
 
-            // Show only the matching section
             if (this.value === "In-Person") {
                 inpersonSection.style.display = "block";
             } else if (this.value === "Drone") {
@@ -224,18 +446,11 @@ if (reservationForm) {
         });
     });
 
-    //FORM VALIDATION
-
-
+    // Form validation
     reservationForm.addEventListener("submit", function(event) {
-
-        // Prevent default form submission
         event.preventDefault();
-
-        // Clear all previous errors
         clearAllErrors();
 
-        // Collect form values
         const name = document.getElementById("full_name").value.trim();
         const phone = document.getElementById("phone_number").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -249,13 +464,11 @@ if (reservationForm) {
 
         let hasErrors = false;
 
-        // Validate service selection — required
         if (!serviceRadio) {
             showFieldError("error-service", "Please select a service type.");
             hasErrors = true;
         }
 
-        // Validate name — required, max 20 characters
         if (name === "") {
             showFieldError("error-name", "Full name is required.");
             hasErrors = true;
@@ -264,7 +477,6 @@ if (reservationForm) {
             hasErrors = true;
         }
 
-        // Validate email — required, must contain @ and .
         if (email === "") {
             showFieldError("error-email", "Email is required.");
             hasErrors = true;
@@ -273,31 +485,26 @@ if (reservationForm) {
             hasErrors = true;
         }
 
-        // Validate phone — optional but if entered must match 000-000-0000
         if (phone !== "" && !/^\d{3}-\d{3}-\d{4}$/.test(phone)) {
             showFieldError("error-phone", "Phone must be in format: 555-867-5309");
             hasErrors = true;
         }
 
-        // Validate date — required
         if (date === "") {
             showFieldError("error-date", "Please select a reservation date.");
             hasErrors = true;
         }
 
-        // Validate time — required
         if (time === "") {
             showFieldError("error-time", "Please select a reservation time.");
             hasErrors = true;
         }
 
-        // Validate dietary notes — max 30 characters
         if (dietaryNotes.length > 30) {
             showFieldError("error-dietary", "Dietary notes cannot exceed 30 characters.");
             hasErrors = true;
         }
 
-        // If In-Person selected validates party size and seating
         if (serviceRadio && serviceRadio.value === "In-Person") {
             if (partySize === "") {
                 showFieldError("error-party", "Please select a party size.");
@@ -309,7 +516,6 @@ if (reservationForm) {
             }
         }
 
-        // If errors — show red alert at top and stop
         if (hasErrors) {
             alertBox.innerHTML = `
                 <div class="alert alert-danger" role="alert">
@@ -320,7 +526,6 @@ if (reservationForm) {
             return;
         }
 
-        // All valid — build the reservation object
         const reservation = {
             name: name,
             email: email,
@@ -334,10 +539,8 @@ if (reservationForm) {
             newsletter: newsletter
         };
 
-
         console.log(reservation);
 
-        // green success alert
         alertBox.innerHTML = `
             <div class="alert alert-success" role="alert">
                 <strong>Reservation submitted!</strong> We will confirm your request within 24 hours.
@@ -345,7 +548,6 @@ if (reservationForm) {
         `;
         alertBox.scrollIntoView({ behavior: "smooth" });
 
-        // Reset form
         reservationForm.reset();
         inpersonSection.style.display = "none";
         droneSection.style.display = "none";
