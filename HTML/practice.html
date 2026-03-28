@@ -1,0 +1,133 @@
+// index.html
+<!practice html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tesla FSD-like Visualization (Demo)</title>
+    <style>
+        body { margin:0; background:#000; overflow:hidden; }
+        canvas { display:block; }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+    // FSD-style visualization demo (very simplified)
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    const car = { x: width / 2, y: height * 0.75, width: 60, height: 120 };
+    const lanes = [
+        { x: width * 0.3 },
+        { x: width * 0.5 },
+        { x: width * 0.7 }
+    ];
+
+    let objects = [
+        { x: width * 0.4, y: -200, w: 50, h: 100, color: '#ff4444', speed: 8 }, // car ahead
+        { x: width * 0.65, y: -500, w: 200, h: 40, color: '#44ff44', speed: 3 }  // cyclist
+    ];
+
+    function drawRoad() {
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, width, height);
+
+        // Horizon
+        ctx.fillStyle = '#222';
+        ctx.fillRect(0, 0, width, height * 0.4);
+
+        // Road
+        ctx.fillStyle = '#000';
+        ctx.fillRect(width * 0.2, 0, width * 0.6, height);
+
+        // Lane lines
+        ctx.strokeStyle = '#ffea00';
+        ctx.lineWidth = 8;
+        ctx.setLineDash([40, 40]);
+
+        lanes.forEach(lane => {
+            ctx.beginPath();
+            ctx.moveTo(lane.x, 0);
+            ctx.lineTo(lane.x, height);
+            ctx.stroke();
+        });
+
+        ctx.setLineDash([]);
+    }
+
+    function drawCar() {
+        ctx.save();
+        ctx.translate(car.x, car.y);
+
+        // Blue Tesla-like car body
+        ctx.fillStyle = '#0066ff';
+        ctx.fillRect(-car.width/2, -car.height/2, car.width, car.height);
+
+        // Windows
+        ctx.fillStyle = '#111';
+        ctx.fillRect(-car.width/2 + 10, -car.height/2 + 20, car.width - 20, 60);
+
+        // Wheels
+        ctx.fillStyle = '#000';
+        ctx.fillRect(-car.width/2 - 5, -car.height/2 + 10, 10, 40);
+        ctx.fillRect(car.width/2 - 5, -car.height/2 + 10, 10, 40);
+        ctx.fillRect(-car.width/2 - 5, car.height/2 - 50, 10, 40);
+        ctx.fillRect(car.width/2 - 5, car.height/2 - 50, 10, 40);
+
+        ctx.restore();
+    }
+
+    function drawObjects() {
+        objects.forEach(obj => {
+            ctx.fillStyle = obj.color;
+            ctx.fillRect(obj.x - obj.w/2, obj.y - obj.h/2, obj.w, obj.h);
+
+            // Projected path lines (Tesla-style)
+            ctx.strokeStyle = obj.color + '88';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(obj.x, obj.y);
+            ctx.lineTo(obj.x, obj.y + 400);
+            ctx.stroke();
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        drawRoad();
+
+        // Move objects towards us (simulate driving forward)
+        objects.forEach(obj => {
+            obj.y += obj.speed;
+            if (obj.y > height + 100) obj.y = -200 - Math.random() * 400;
+        });
+
+        drawObjects();
+        drawCar();
+
+        // FSD path prediction (simple parabola example)
+        ctx.strokeStyle = '#00ffff';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(car.x, car.y);
+        ctx.quadraticCurveTo(car.x - 40, car.y - 200, car.x + 80, car.y - 500);
+        ctx.stroke();
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+</body>
+</html>

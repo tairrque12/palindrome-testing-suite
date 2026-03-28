@@ -1,0 +1,152 @@
+<!DOCTYPE html>.navbar {
+/* LAYOUT */
+display: flex;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: 1000;
+
+/* SPACING */
+padding: [top/bottom] [left/right];
+
+/* ALIGNMENT */
+justify-content: space-between;
+align-items: center;
+
+/* VISUAL */
+background: [your color];
+border-bottom: [thickness] [style] [color];
+}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Form Practice</title>
+</head>
+
+<body>
+<h1>Please Enter Your Information to Enter The Site</h1>
+
+<!-- THIS IS WHERE THE FORM BEGINS -->
+<form action="/submit" method="POST">
+
+  <fieldset>
+    <legend>Enter Your Personal Information Here</legend>
+
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" id="first_name" placeholder="Enter Your First Name" autofocus required>
+
+    <br><br>
+    <!--These create a space between the fields-->
+
+    <label for="last_name">Last Name</label>
+    <input type="text" name="last_name" id="last_name" required>
+
+    <br><br>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" autofocus required>
+
+    <br><br>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" minlength="8" required>
+
+    <br><br>
+
+    <label for="dob">Date of Birth</label>
+    <input type="date" name="DOB" id="dob" required>
+
+  </fieldset>
+  <!--This Ends the Personal Info Section-->
+
+  <br><br>
+
+
+  <fieldset>
+    <legend>Enter Your Military Service Branch</legend>
+
+    <label><input type="radio" name="branch" value="Army" required> Army</label>
+    <label><input type="radio" name="branch" value="Air Force"> Air Force</label>
+    <label><input type="radio" name="branch" value="Space Force"> Space Force</label>
+    <label><input type="radio" name="branch" value="Marines"> Marines</label>
+    <label><input type="radio" name="branch" value="Navy"> Navy</label>
+  </fieldset>
+
+  <br><br>
+
+  <fieldset>
+    <legend>Service Details</legend>
+
+    <label for="rank">Select Rank</label>
+    <select name="rank" id="rank" required>
+      <option value="">--Choose Rank--</option>
+      <option value="E1">E1</option>
+      <option value="E2">E2</option>
+      <option value="E3">E3</option>
+      <option value="E4">E4</option>
+      <option value="E5">E5</option>
+      <option value="E6">E6</option>
+      <option value="E7">E7</option>
+      <option value="E8">E8</option>
+      <option value="O-1">O-1</option>
+      <option value="O-2">O-2</option>
+      <option value="O-3">O-3</option>
+      <option value="O-4">O-4</option>
+      <option value="O-5">O-5</option>
+      <option value="O-6">O-6</option>
+    </select>
+  </fieldset>
+
+  <br><br>
+
+  <fieldset>
+    <legend>Enter Your Years Of Service</legend>
+  <label for="years_service">Years of Service</label>
+  <input type="number" name="years_service" id="years_service" max="20" min="0" required>
+  </fieldset>
+
+  <br><br>
+
+  <fieldset>
+    <legend>Qualifications (Select all that apply)</legend>
+
+    <label><input type="checkbox" name="qualification" value="security_clearance"> Security Clearance</label><br>
+    <label><input type="checkbox" name="qualification" value="Ranger"> Ranger Qualified</label><br>
+    <label><input type="checkbox" name="qualification" value="Airborne"> Airborne</label><br>
+    <label><input type="checkbox" name="qualification" value="Air_Assault"> Air Assault</label><br>
+    <label><input type="checkbox" name="qualification" value="Jungle"> Jungle</label><br>
+  </fieldset>
+
+  <br><br>
+
+  <fieldset>
+    <legend>Please Enter Your Phone Number</legend>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone"
+    placeholder="123-456-678"
+           pattern= "[0-9]{3}-[0-9]{3}-[0-9]{4}">
+    >
+  </fieldset>
+
+
+<br><br>
+
+
+  <fieldset>
+    <legend>NewsLetter</legend>
+    <label>
+      <input type="checkbox" name="terms" required>
+      I agree to the terms and conditions
+    </label>
+  </fieldset>
+
+  <br><br>
+
+  <input type="submit" value="Submit">
+
+</form>
+<!-- THIS IS WHERE THE FORM ENDS -->
+
+</body>
+</html>

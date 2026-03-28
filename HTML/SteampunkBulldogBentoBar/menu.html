@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Steam & Silicon | Menu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <img src="images/Steam&SiliconLogo.png" alt="Steam and Silicon Logo" height="50">
+            <span>Steam & Silicon</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--MENU INTRO-->
+<section class="menu-intro">
+    <h1>Retro-Futuristic Menu</h1>
+    <p>Inspired by American diner classics, we offer a full menu of quick bites
+        and full meals, all made with high-quality ingredients. Dine with us inside
+        or on our Skypad, or order from your vehicle and have your meal dropped off
+        at your driver's side window.</p>
+</section>
+
+<!--CONTENT IMAGE-->
+<section class="restaurant-picture">
+    <img src="images/food.png" alt="Futuristic Steam and Silicon Diner">
+</section>
+
+<!--CATEGORY FILTER BUTTONS-->
+<div class="category-links" id="filter-buttons">
+    <button class="btn-filter active" data-category="All">All</button>
+    <button class="btn-filter" data-category="Breakfast">Breakfast</button>
+    <button class="btn-filter" data-category="Lunch">Lunch</button>
+    <button class="btn-filter" data-category="Dinner">Dinner</button>
+</div>
+
+<!--MENU CARDS CONTAINER — JavaScript fills this-->
+<div class="menu-grid" id="menu-container"></div>
+
+<!--REQUIRED MENU TABLE-->
+<section class="menu-section">
+    <table class="menu-table">
+        <caption>Steam & Silicon — Full Menu</caption>
+        <thead>
+        <tr>
+            <th>Food</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Voltage Breakfast</td>
+            <td>Two eggs any style, applewood bacon, sourdough toast, orange juice</td>
+            <td>$11.99</td>
+            <td>Breakfast</td>
+        </tr>
+        <tr>
+            <td>Gear Egg & Scramble</td>
+            <td>Three egg scramble, roasted peppers, onions, cheddar cheese, home fries</td>
+            <td>$8.99</td>
+            <td>Breakfast</td>
+        </tr>
+        <tr>
+            <td>Copper Coil French Toast</td>
+            <td>Thick cut brioche french toast, powdered sugar, fresh berries, whipped cream</td>
+            <td>$8.99</td>
+            <td>Breakfast</td>
+        </tr>
+        <tr>
+            <td>Silicon Stack Pancakes</td>
+            <td>Fluffy buttermilk pancakes, maple syrup, whipped butter, fresh strawberries</td>
+            <td>$9.99</td>
+            <td>Breakfast</td>
+        </tr>
+        <tr>
+            <td>The IronClad Burger</td>
+            <td>Double smash patty, bacon jam, cheddar cheese, caramelized onions, brioche bun</td>
+            <td>$13.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>The OverCharge</td>
+            <td>Double smash patty, bacon jam, cheddar cheese, caramelized onions, brioche bun</td>
+            <td>$13.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>Circuit Salad</td>
+            <td>Grilled chicken, romaine, parmesan, croutons, caesar dressing</td>
+            <td>$11.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>Drone Drop Wrap</td>
+            <td>Grilled steak, roasted peppers, pepper jack cheese, chipotle aioli, flour tortilla</td>
+            <td>$11.99</td>
+            <td>Lunch</td>
+        </tr>
+        <tr>
+            <td>SkyPad Rib-eye</td>
+            <td>12oz ribeye, garlic butter, roasted asparagus, mashed potatoes</td>
+            <td>$34.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>Neon Salmon</td>
+            <td>Pan seared salmon, lemon butter sauce, wild rice, steamed broccoli</td>
+            <td>$28.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>Reactor Pasta</td>
+            <td>Penne pasta, spicy arrabbiata sauce, Italian sausage, fresh parmesan, garlic bread</td>
+            <td>$18.99</td>
+            <td>Dinner</td>
+        </tr>
+        <tr>
+            <td>The Veginator Plate</td>
+            <td>Plant based patty, avocado, lettuce, tomato, vegan aioli, sweet potato fries</td>
+            <td>$16.99</td>
+            <td>Dinner</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!--BOOTSTRAP MODAL — hidden by default, JavaScript fills it on card click-->
+<div class="modal fade" id="menuModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modalItemName"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modalItemImage" src="" alt="" class="w-100 mb-3" style="object-fit:cover; height:250px;">
+                <p id="modalItemPrice" class="fw-bold fs-5" style="color: var(--blue)"></p>
+                <p id="modalItemDescription" class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Your JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
